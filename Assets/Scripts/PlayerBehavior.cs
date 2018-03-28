@@ -11,10 +11,8 @@ public class PlayerBehavior : MonoBehaviour {
     bool hasJetpack = false;
 
 	public Camera camera;
-	public float walkForce = 15000;
-	public float jumpForce = 15000;
-    public float maxSpeedX = 50;
-    public float maxSpeedY = 80;
+	public float walkSpeed = 30;
+	public float jumpSpeed = 45;
     public string horizontalAxisName = "Horizontal";
 	public string verticalAxisName = "Vertical";
 	public float jumpMaxTime = 0.1f;
@@ -49,45 +47,22 @@ public class PlayerBehavior : MonoBehaviour {
 		bool onGround = (hit.collider != null);
 
 		//print (hit.fraction + " " + hit.point + "\n");
-		Debug.DrawRay(transform.position, transform.TransformDirection (Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
-
-        /*if (wannaJump) {
-			if (!startedJumpTimer && onGround) {
-				startedJumpTimer = true;
-				jumpTimeLeft = jumpMaxTime;
-			} else {
-				jumpTimeLeft -= Time.fixedDeltaTime;
-			}
-
-			if (jumpTimeLeft > 0) {
-				rigidbody2D.AddForce (transform.up * axisV * jumpForce);
-			}
-		} else {
-			if (onGround) {
-				startedJumpTimer = false;
-				jumpTimeLeft = 0;
-			}
-		}*/
+		//Debug.DrawRay(transform.position, transform.TransformDirection (Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
 
         if (onGround || hasJetpack)
         {
-            rigidbody2D.velocity = new Vector2(0, rigidbody2D.velocity.y);
-            rigidbody2D.AddForce(transform.up * axisV * jumpForce);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, axisV * jumpSpeed);
         }
 
         if (Mathf.Abs (axisH) > 0) {
-			rigidbody2D.AddForce(transform.right * axisH * walkForce);
-		}
+            rigidbody2D.velocity = new Vector2(axisH * walkSpeed, rigidbody2D.velocity.y);
+        }
 
-        rigidbody2D.velocity = new Vector2(Mathf.Clamp(rigidbody2D.velocity.x, -maxSpeedX, maxSpeedX), Mathf.Clamp(rigidbody2D.velocity.y, -maxSpeedY, maxSpeedY));
-
-        animator.SetFloat("velocity", Mathf.Abs(axisH));
+        animator.SetFloat("velocity", onGround ? Mathf.Abs(axisH) : 0.0f);
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collision Detected" + other.gameObject.tag);
-
         if (other.gameObject.CompareTag ("PickUp"))
 		{           
 			other.transform.SetParent (transform);

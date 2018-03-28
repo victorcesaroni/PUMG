@@ -53,7 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>C:/Users/15593866/Downloads/PUMG/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>C:/Users/15593866/Documents/PUMG/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="Vuforia.UnityExtensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>

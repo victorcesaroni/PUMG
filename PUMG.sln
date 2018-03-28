@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PUMG", "PUMG.csproj", "{C89CC4A3-70FA-F9BE-312E-7EBE1033DB89}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PUMG", "Assembly-CSharp.csproj", "{736488F2-2405-30C8-58C0-3D2CDE0D554F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C89CC4A3-70FA-F9BE-312E-7EBE1033DB89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C89CC4A3-70FA-F9BE-312E-7EBE1033DB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C89CC4A3-70FA-F9BE-312E-7EBE1033DB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C89CC4A3-70FA-F9BE-312E-7EBE1033DB89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736488F2-2405-30C8-58C0-3D2CDE0D554F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736488F2-2405-30C8-58C0-3D2CDE0D554F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736488F2-2405-30C8-58C0-3D2CDE0D554F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736488F2-2405-30C8-58C0-3D2CDE0D554F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
