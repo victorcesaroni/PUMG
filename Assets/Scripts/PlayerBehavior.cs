@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
 	Animator animator;
@@ -10,6 +11,7 @@ public class PlayerBehavior : MonoBehaviour {
 	float jumpTimeLeft = 0;
     bool hasJetpack = false;
     float jetpackLevel = 0;
+	GameObject jetpack;
 
     public bool ducking = false;
 
@@ -20,6 +22,9 @@ public class PlayerBehavior : MonoBehaviour {
 	public string verticalAxisName = "Vertical";
 	public float jumpMaxTime = 0.1f;
 
+	public Image powerImageBar;
+	public float powerPercent = 0.0f;
+
 	void Start()
 	{
 		animator = GetComponent<Animator>();
@@ -29,6 +34,8 @@ public class PlayerBehavior : MonoBehaviour {
 	void Update()
 	{
 		camera.transform.position = new Vector3 (rigidbody2D.transform.position.x, rigidbody2D.transform.position.y, -15.0f);
+		powerImageBar.fillAmount = powerPercent; 
+		powerImageBar.color = new Color(0.3f + (jetpackLevel / 3.0f) * 0.7f, 1.0f - 0.3f + (jetpackLevel / 3.0f) * 0.7f, 0.3f);
 	}
 	
 	void FixedUpdate()
@@ -64,6 +71,26 @@ public class PlayerBehavior : MonoBehaviour {
         ducking = axisV < 0;
 
         animator.SetFloat("velocity", onGround ? Mathf.Abs(axisH) : 0.0f);
+
+		if (hasJetpack)
+		{
+			if (onGround) {
+				powerPercent -= 0.0002f / 2;
+			} else {
+				powerPercent -= 0.002f / 2;
+				if (Mathf.Abs (axisH) > 0 || Mathf.Abs (axisV) > 0) {
+					powerPercent -= 0.003f / 2;
+				}
+			}
+		}
+
+		if (powerPercent < 0) {
+			if (hasJetpack) {
+				hasJetpack = false;
+				powerPercent = 0;
+				jetpackLevel = 0;
+			}
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
@@ -78,6 +105,8 @@ public class PlayerBehavior : MonoBehaviour {
             other.GetComponent<Rigidbody2D>().simulated = false;
             hasJetpack = true;
             jetpackLevel += 1.0f;
+			powerPercent = 1.0f;
+			jetpack = other.GetComponent<GameObject>();
         }
 	}
 }
