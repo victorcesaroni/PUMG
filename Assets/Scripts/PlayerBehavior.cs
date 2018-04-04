@@ -9,6 +9,7 @@ public class PlayerBehavior : MonoBehaviour {
 	bool startedJumpTimer = false;
 	float jumpTimeLeft = 0;
     bool hasJetpack = false;
+    float jetpackLevel = 0;
 
     public bool ducking = false;
 
@@ -53,7 +54,7 @@ public class PlayerBehavior : MonoBehaviour {
 
         if (onGround || hasJetpack)
         {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, axisV * jumpSpeed);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, axisV * (jumpSpeed + jetpackLevel * (jumpSpeed/2)));
         }
 
         if (Mathf.Abs (axisH) > 0) {
@@ -76,6 +77,7 @@ public class PlayerBehavior : MonoBehaviour {
             other.transform.localRotation = new Quaternion(0, 0, 0, 0);
             other.GetComponent<Rigidbody2D>().simulated = false;
             hasJetpack = true;
+            jetpackLevel += 1.0f;
         }
 	}
 }
