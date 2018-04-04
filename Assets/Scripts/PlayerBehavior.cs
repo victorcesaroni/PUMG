@@ -10,6 +10,8 @@ public class PlayerBehavior : MonoBehaviour {
 	float jumpTimeLeft = 0;
     bool hasJetpack = false;
 
+    public bool ducking = false;
+
 	public Camera camera;
 	public float walkSpeed = 30;
 	public float jumpSpeed = 45;
@@ -57,6 +59,8 @@ public class PlayerBehavior : MonoBehaviour {
         if (Mathf.Abs (axisH) > 0) {
             rigidbody2D.velocity = new Vector2(axisH * walkSpeed, rigidbody2D.velocity.y);
         }
+
+        ducking = axisV < 0;
 
         animator.SetFloat("velocity", onGround ? Mathf.Abs(axisH) : 0.0f);
 	}
