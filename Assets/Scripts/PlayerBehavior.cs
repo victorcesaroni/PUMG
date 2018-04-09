@@ -5,46 +5,65 @@ using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
 	Animator animator;
-	Rigidbody2D rigidbody2D;
+	Rigidbody2D rb;
 	bool leftScale = true;
-	bool startedJumpTimer = false;
-	float jumpTimeLeft = 0;
-    bool hasJetpack = false;
-    float jetpackLevel = 0;
-	GameObject jetpack;
 
     public bool ducking = false;
 
-	public Camera camera;
+	public Camera followCamera;
 	public float walkSpeed = 30;
 	public float jumpSpeed = 45;
     public string horizontalAxisName = "Horizontal";
 	public string verticalAxisName = "Vertical";
-	public float jumpMaxTime = 0.1f;
 
 	public Image powerImageBar;
-	public float powerPercent = 0.0f;
+	public List<Pickup> pickups;
 
 	void Start()
 	{
 		animator = GetComponent<Animator>();
-		rigidbody2D = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody2D>();
 	}
 
 	void Update()
 	{
-		camera.transform.position = new Vector3 (rigidbody2D.transform.position.x, rigidbody2D.transform.position.y, -15.0f);
-		powerImageBar.fillAmount = powerPercent; 
-		powerImageBar.color = new Color(0.3f + (jetpackLevel / 3.0f) * 0.7f, 1.0f - 0.3f + (jetpackLevel / 3.0f) * 0.7f, 0.3f);
+        Pickup power = GetUsablePower();
+
+        followCamera.transform.position = new Vector3 (rb.transform.position.x, rb.transform.position.y, -15.0f);
+
+        if (power)
+        {
+            powerImageBar.fillAmount = power.power;
+        }
+        else
+        {
+            powerImageBar.fillAmount = 0;
+        }
 	}
+
+    Pickup GetUsablePower()
+    {
+        if (pickups.Count <= 0)
+            return null;
+
+        Pickup p = pickups[pickups.Count - 1];
+
+        if (p.power <= 0.0f)
+        {
+            pickups.Remove(p);
+            return null;
+        }
+
+        return p;
+    }
 	
 	void FixedUpdate()
 	{
-		float axisH = Input.GetAxis(horizontalAxisName);
+        Pickup power = GetUsablePower();
+
+        float axisH = Input.GetAxis(horizontalAxisName);
 		float axisV = Input.GetAxis(verticalAxisName);
-
-		bool wannaJump = (axisV > 0);
-
+        
 		if (leftScale && axisH < 0) {
 			transform.localScale = new Vector2 (transform.localScale.x * -1.0f, transform.localScale.y);
 			leftScale = !leftScale;
@@ -56,41 +75,29 @@ public class PlayerBehavior : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.3f, ~(LayerMask.GetMask("Player")));
 		bool onGround = (hit.collider != null);
 
-		//print (hit.fraction + " " + hit.point + "\n");
-		//Debug.DrawRay(transform.position, transform.TransformDirection (Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
+        //print (hit.fraction + " " + hit.point + "\n");
+        //Debug.DrawRay(transform.position, transform.TransformDirection (Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
 
-        if (onGround || hasJetpack)
+        Jetpack jetpack = power != null ? power.GetJetpack() : null;
+        
+        if (jetpack && jetpack.active)
         {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, axisV * (jumpSpeed + jetpackLevel * (jumpSpeed/2)));
+            rb.velocity = new Vector2(rb.velocity.x, axisV * jumpSpeed + axisV * (power.level * (jumpSpeed / 2.0f)));
+            jetpack.Consume(onGround, Mathf.Abs(axisH) > 0 || Mathf.Abs(axisV) > 0);            
+        }    
+        else if (onGround)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, axisV * jumpSpeed);
         }
 
-        if (Mathf.Abs (axisH) > 0) {
-            rigidbody2D.velocity = new Vector2(axisH * walkSpeed, rigidbody2D.velocity.y);
+        if (Mathf.Abs(axisH) > 0)
+        {
+            rb.velocity = new Vector2(axisH * walkSpeed, rb.velocity.y);
         }
 
         ducking = axisV < 0;
 
-        animator.SetFloat("velocity", onGround ? Mathf.Abs(axisH) : 0.0f);
-
-		if (hasJetpack)
-		{
-			if (onGround) {
-				powerPercent -= 0.0002f / 2;
-			} else {
-				powerPercent -= 0.002f / 2;
-				if (Mathf.Abs (axisH) > 0 || Mathf.Abs (axisV) > 0) {
-					powerPercent -= 0.003f / 2;
-				}
-			}
-		}
-
-		if (powerPercent < 0) {
-			if (hasJetpack) {
-				hasJetpack = false;
-				powerPercent = 0;
-				jetpackLevel = 0;
-			}
-		}
+        animator.SetFloat("velocity", onGround ? Mathf.Abs(axisH) : 0.0f);		
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
@@ -103,10 +110,10 @@ public class PlayerBehavior : MonoBehaviour {
             other.transform.rotation = new Quaternion(0, 0, 0, 0);
             other.transform.localRotation = new Quaternion(0, 0, 0, 0);
             other.GetComponent<Rigidbody2D>().simulated = false;
-            hasJetpack = true;
-            jetpackLevel += 1.0f;
-			powerPercent = 1.0f;
-			jetpack = other.GetComponent<GameObject>();
+
+            Pickup pickup = other.GetComponent<Pickup>();
+            pickup.active = true;
+            pickups.Add(pickup);
         }
 	}
 }
