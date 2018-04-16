@@ -30,7 +30,7 @@ public class PlayerBehavior : MonoBehaviour {
 	{
         Pickup power = GetUsablePower();
 
-        followCamera.transform.position = new Vector3 (rb.transform.position.x, rb.transform.position.y, -15.0f);
+		followCamera.transform.position = new Vector3 (rb.transform.position.x, rb.transform.position.y, followCamera.transform.position.z);
 
         if (power)
         {
@@ -132,7 +132,6 @@ public class PlayerBehavior : MonoBehaviour {
             other.transform.localScale = new Vector2(1, 1);
             other.transform.rotation = new Quaternion(0, 0, 0, 0);
             other.transform.localRotation = new Quaternion(0, 0, 0, 0);
-            other.GetComponent<Rigidbody2D>().simulated = false;
 
             Pickup pickup = other.GetComponent<Pickup>();
             pickup.active = true;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PickUp
   - Pipe
+  - MainCamera2
   layers:
   - Default
   - TransparentFX
