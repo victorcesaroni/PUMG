@@ -19,7 +19,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	public Image powerImageBar;
 	public List<Pickup> pickups;
-
+    
 	void Start()
 	{
 		animator = GetComponent<Animator>();
@@ -40,7 +40,7 @@ public class PlayerBehavior : MonoBehaviour {
         {
             powerImageBar.fillAmount = 0;
         }
-	}
+    }
 
     Pickup GetUsablePower()
     {
@@ -126,16 +126,19 @@ public class PlayerBehavior : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag ("PickUp"))
-		{           
-			other.transform.SetParent (transform);
-            other.transform.localPosition = new Vector3(-0.01399994f, 0.1879997f, 1);
-            other.transform.localScale = new Vector2(1, 1);
-            other.transform.rotation = new Quaternion(0, 0, 0, 0);
-            other.transform.localRotation = new Quaternion(0, 0, 0, 0);
+		{
+            if (pickups.Count < 3)
+            {
+                other.transform.SetParent(transform);
+                other.transform.localPosition = new Vector3(-0.01399994f, 0.1879997f, 1);
+                other.transform.localScale = new Vector2(1, 1);
+                other.transform.rotation = new Quaternion(0, 0, 0, 0);
+                other.transform.localRotation = new Quaternion(0, 0, 0, 0);
 
-            Pickup pickup = other.GetComponent<Pickup>();
-            pickup.active = true;
-            pickups.Add(pickup);
+                Pickup pickup = other.GetComponent<Pickup>();
+                pickup.active = true;
+                pickups.Add(pickup);
+            }
         }
 	}
 }

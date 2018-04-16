@@ -7,6 +7,7 @@ public class Pickup : MonoBehaviour
     public bool active = false;
     public int level = 1;
     public float power = 1.0f;
+    public Sprite icon;
     
     void Start()
     {
