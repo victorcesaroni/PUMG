@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
         medium.z = transform.position.z;
         higher.z = transform.position.z;
 
-        if ((higher - medium).magnitude < 10.0f)
+        if ((higher - medium).magnitude < 7.0f)
             targetPos = medium;
         else
             targetPos = higher;

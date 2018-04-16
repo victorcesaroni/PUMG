@@ -13,6 +13,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public Camera followCamera;
 	public float walkSpeed = 30;
 	public float jumpSpeed = 45;
+    public float walkSpeedVariation = 7.0f;
     public string horizontalAxisName = "Horizontal";
 	public string verticalAxisName = "Vertical";
 
@@ -56,24 +57,46 @@ public class PlayerBehavior : MonoBehaviour {
 
         return p;
     }
-	
-	void FixedUpdate()
-	{
+
+    void FixedUpdate()
+    {
         Pickup power = GetUsablePower();
 
         float axisH = Input.GetAxis(horizontalAxisName);
-		float axisV = Input.GetAxis(verticalAxisName);
-        
-		if (leftScale && axisH < 0) {
+        float axisV = Input.GetAxis(verticalAxisName);
+
+        Physics2D.queriesHitTriggers = false;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.3f, ~(LayerMask.GetMask("Player")));
+        bool onGround = (hit.collider != null);
+
+        hit = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
+        bool hitLeft = (hit.collider != null);
+        hit = Physics2D.Raycast(transform.position + new Vector3(0, 0.9f, 0), Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
+        hitLeft |= hit.collider != null;
+
+        hit = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
+        bool hitRight = (hit.collider != null);
+        hit = Physics2D.Raycast(transform.position + new Vector3(0, 0.9f, 0), Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
+        hitRight |= hit.collider != null;
+
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
+        Debug.DrawRay(transform.position + new Vector3(0, 0.9f, 0), transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
+        Debug.DrawRay(transform.position + new Vector3(0, 0.9f, 0), transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
+
+        if (axisH < 0 && hitLeft)
+            axisH = 0;
+        if (axisH > 0 && hitRight)
+            axisH = 0;
+
+        if (leftScale && axisH < 0) {
 			transform.localScale = new Vector2 (transform.localScale.x * -1.0f, transform.localScale.y);
 			leftScale = !leftScale;
 		} else if (!leftScale && axisH > 0) {
 			transform.localScale = new Vector2 (transform.localScale.x * -1.0f, transform.localScale.y);
 			leftScale = !leftScale;
 		}
-
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.3f, ~(LayerMask.GetMask("Player")));
-		bool onGround = (hit.collider != null);
 
         //print (hit.fraction + " " + hit.point + "\n");
         //Debug.DrawRay(transform.position, transform.TransformDirection (Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
@@ -92,7 +115,7 @@ public class PlayerBehavior : MonoBehaviour {
 
         if (Mathf.Abs(axisH) > 0)
         {
-            rb.velocity = new Vector2(axisH * walkSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(axisH * (walkSpeed + Random.Range(-walkSpeedVariation, walkSpeedVariation)), rb.velocity.y);
         }
 
         ducking = axisV < 0;
