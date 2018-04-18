@@ -18,7 +18,8 @@ public class PlayerBehavior : MonoBehaviour {
 	public string verticalAxisName = "Vertical";
 
 	public Image powerImageBar;
-	public List<Pickup> pickups;
+
+    public List<Pickup> pickups = new List<Pickup>();
     
 	void Start()
 	{
@@ -41,7 +42,7 @@ public class PlayerBehavior : MonoBehaviour {
             powerImageBar.fillAmount = 0;
         }
     }
-
+    
     Pickup GetUsablePower()
     {
         if (pickups.Count <= 0)
