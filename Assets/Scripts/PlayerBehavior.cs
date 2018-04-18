@@ -128,8 +128,10 @@ public class PlayerBehavior : MonoBehaviour {
 
         ducking = axisV < 0;
 
-        animator.SetFloat("velocity", onGround ? Mathf.Abs(axisH) : 0.0f);		
-	}
+        animator.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("velocityY", (rb.velocity.y));
+        animator.SetBool("onGround", onGround);
+    }
 
 	void OnTriggerEnter2D(Collider2D other)
     {
