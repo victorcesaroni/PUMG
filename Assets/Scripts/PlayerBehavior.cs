@@ -4,34 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
-	Animator animator;
-	Rigidbody2D rb;
-	bool leftScale = true;
+    Animator animator;
+    Rigidbody2D rb;
+    bool leftScale = true;
 
     public bool ducking = false;
 
-	public Camera followCamera;
-	public float walkSpeed = 30;
-	public float jumpSpeed = 45;
+    public Camera followCamera;
+    public float walkSpeed = 30;
+    public float jumpSpeed = 45;
     public float walkSpeedVariation = 7.0f;
     public string horizontalAxisName = "Horizontal";
-	public string verticalAxisName = "Vertical";
+    public string verticalAxisName = "Vertical";
 
-	public Image powerImageBar;
+    public Image powerImageBar;
 
     public List<Pickup> pickups = new List<Pickup>();
-    
-	void Start()
-	{
-		animator = GetComponent<Animator>();
-		rb = GetComponent<Rigidbody2D>();
-	}
 
-	void Update()
-	{
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
         Pickup power = GetUsablePower();
 
-		followCamera.transform.position = new Vector3 (rb.transform.position.x, rb.transform.position.y, followCamera.transform.position.z);
+        followCamera.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y, followCamera.transform.position.z);
 
         if (power)
         {
@@ -42,7 +42,7 @@ public class PlayerBehavior : MonoBehaviour {
             powerImageBar.fillAmount = 0;
         }
     }
-    
+
     Pickup GetUsablePower()
     {
         if (pickups.Count <= 0)
@@ -72,32 +72,29 @@ public class PlayerBehavior : MonoBehaviour {
         Vector3 bottom = new Vector3(bounds.center.x, bounds.min.y, bounds.center.z);
         Vector3 top = new Vector3(bounds.center.x, bounds.max.y, bounds.center.z);
         Vector3 mid = new Vector3(bounds.center.x, bounds.min.y + (bounds.max.y - bounds.min.y) / 2, bounds.center.z);
+        float width = (bounds.max.x - bounds.min.x);
 
         RaycastHit2D hit = Physics2D.Raycast(bottom, Vector2.up * -1, 0.3f, ~(LayerMask.GetMask("Player")));
         bool onGround = (hit.collider != null);
 
-        hit = Physics2D.Raycast(bottom, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
-        bool hitLeft = (hit.collider != null);
-        hit = Physics2D.Raycast(bottom, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
-        hitLeft |= hit.collider != null;
-        hit = Physics2D.Raycast(mid, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
-        hitLeft |= hit.collider != null;
+        bool hitLeft =
+            Physics2D.Raycast(bottom, Vector2.left, width * 0.9f, ~(LayerMask.GetMask("Player"))).collider != null ||
+            Physics2D.Raycast(top, Vector2.left, width * 0.9f, ~(LayerMask.GetMask("Player"))).collider != null ||
+            Physics2D.Raycast(mid, Vector2.left, width * 0.9f, ~(LayerMask.GetMask("Player"))).collider != null;
 
-        hit = Physics2D.Raycast(bottom, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
-        bool hitRight = (hit.collider != null);
-        hit = Physics2D.Raycast(top, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
-        hitRight |= hit.collider != null;
-        hit = Physics2D.Raycast(mid, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
-        hitRight |= hit.collider != null;
+        bool hitRight =
+            Physics2D.Raycast(bottom, Vector2.right, width * 0.9f, ~(LayerMask.GetMask("Player"))).collider != null ||
+            Physics2D.Raycast(top, Vector2.right, width * 0.9f, ~(LayerMask.GetMask("Player"))).collider != null ||
+            Physics2D.Raycast(mid, Vector2.right, width * 0.9f, ~(LayerMask.GetMask("Player"))).collider != null;
 
         Debug.DrawRay(bottom, transform.TransformDirection(Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
-        Debug.DrawRay(bottom, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
-        Debug.DrawRay(bottom, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
-        Debug.DrawRay(top, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
-        Debug.DrawRay(top, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
-        Debug.DrawRay(mid, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
-        Debug.DrawRay(mid, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
 
+		Debug.DrawRay(bottom, transform.TransformDirection(Vector3.left) * width * 0.9f, hitLeft ? Color.green : Color.red);
+		Debug.DrawRay(top, transform.TransformDirection(Vector3.left) * width * 0.9f, hitLeft ? Color.green : Color.red);
+		Debug.DrawRay(mid, transform.TransformDirection(Vector3.left) * width * 0.9f, hitLeft ? Color.green : Color.red);
+        Debug.DrawRay(bottom, transform.TransformDirection(Vector3.right) * width * 0.9f, hitRight ? Color.green : Color.red);
+        Debug.DrawRay(top, transform.TransformDirection(Vector3.right) * width * 0.9f, hitRight ? Color.green : Color.red);
+        Debug.DrawRay(mid, transform.TransformDirection(Vector3.right) * width * 0.9f, hitRight ? Color.green : Color.red);
 
         if (axisH < 0 && hitLeft)
             axisH = 0;

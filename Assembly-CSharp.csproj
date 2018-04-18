@@ -51,8 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\Inventory.cs" />
+     <Compile Include="Assets\Scripts\Jetpack.cs" />
+     <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\PipeScript.cs" />
      <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
+     <Compile Include="Assets\Scripts\StartPlataform.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>C:/Users/15593866/Documents/pumg/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
