@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 60d8180bb03b9ff4db8282b2bc50b012
-timeCreated: 1521051783
+timeCreated: 1524054385
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,10 @@ TextureImporter:
     21300004: walking_2
     21300006: walking_3
     21300008: walking_4
+    21300010: walking_0
+    21300012: walking_5
+    21300014: walking_6
+    21300016: walking_7
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -70,6 +74,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -79,6 +84,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -88,6 +94,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: tvOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -97,6 +104,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -106,6 +114,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Tizen
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -115,6 +124,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -124,6 +134,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -133,6 +144,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   - buildTarget: Samsung TV
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -142,19 +154,20 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_0
+      name: walking_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 14
-        height: 20
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,12 +176,12 @@ TextureImporter:
       name: walking_1
       rect:
         serializedVersion: 2
-        x: 19
-        y: 3
-        width: 15
-        height: 19
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 21
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -177,12 +190,12 @@ TextureImporter:
       name: walking_2
       rect:
         serializedVersion: 2
-        x: 36
-        y: 2
-        width: 15
-        height: 20
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 42
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,12 +204,12 @@ TextureImporter:
       name: walking_3
       rect:
         serializedVersion: 2
-        x: 53
-        y: 3
-        width: 15
-        height: 19
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 63
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,12 +218,54 @@ TextureImporter:
       name: walking_4
       rect:
         serializedVersion: 2
-        x: 69
-        y: 2
-        width: 16
-        height: 20
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 84
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: walking_5
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: walking_6
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: walking_7
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 0
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

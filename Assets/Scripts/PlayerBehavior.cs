@@ -68,23 +68,36 @@ public class PlayerBehavior : MonoBehaviour {
 
         Physics2D.queriesHitTriggers = false;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * -1, 0.3f, ~(LayerMask.GetMask("Player")));
+        var bounds = GetComponent<CapsuleCollider2D>().bounds;
+        Vector3 bottom = new Vector3(bounds.center.x, bounds.min.y, bounds.center.z);
+        Vector3 top = new Vector3(bounds.center.x, bounds.max.y, bounds.center.z);
+        Vector3 mid = new Vector3(bounds.center.x, bounds.min.y + (bounds.max.y - bounds.min.y) / 2, bounds.center.z);
+
+        RaycastHit2D hit = Physics2D.Raycast(bottom, Vector2.up * -1, 0.3f, ~(LayerMask.GetMask("Player")));
         bool onGround = (hit.collider != null);
 
-        hit = Physics2D.Raycast(transform.position, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
+        hit = Physics2D.Raycast(bottom, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
         bool hitLeft = (hit.collider != null);
-        hit = Physics2D.Raycast(transform.position + new Vector3(0, 0.9f, 0), Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
+        hit = Physics2D.Raycast(bottom, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
+        hitLeft |= hit.collider != null;
+        hit = Physics2D.Raycast(mid, Vector2.left, 0.5f, ~(LayerMask.GetMask("Player")));
         hitLeft |= hit.collider != null;
 
-        hit = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
+        hit = Physics2D.Raycast(bottom, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
         bool hitRight = (hit.collider != null);
-        hit = Physics2D.Raycast(transform.position + new Vector3(0, 0.9f, 0), Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
+        hit = Physics2D.Raycast(top, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
+        hitRight |= hit.collider != null;
+        hit = Physics2D.Raycast(mid, Vector2.right, 0.5f, ~(LayerMask.GetMask("Player")));
         hitRight |= hit.collider != null;
 
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
-        Debug.DrawRay(transform.position + new Vector3(0, 0.9f, 0), transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
-        Debug.DrawRay(transform.position + new Vector3(0, 0.9f, 0), transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
+        Debug.DrawRay(bottom, transform.TransformDirection(Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
+        Debug.DrawRay(bottom, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
+        Debug.DrawRay(bottom, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
+        Debug.DrawRay(top, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
+        Debug.DrawRay(top, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
+        Debug.DrawRay(mid, transform.TransformDirection(Vector3.left) * 0.5f, hitLeft ? Color.green : Color.red);
+        Debug.DrawRay(mid, transform.TransformDirection(Vector3.right) * 0.5f, hitRight ? Color.green : Color.red);
+
 
         if (axisH < 0 && hitLeft)
             axisH = 0;
@@ -98,9 +111,6 @@ public class PlayerBehavior : MonoBehaviour {
 			transform.localScale = new Vector2 (transform.localScale.x * -1.0f, transform.localScale.y);
 			leftScale = !leftScale;
 		}
-
-        //print (hit.fraction + " " + hit.point + "\n");
-        //Debug.DrawRay(transform.position, transform.TransformDirection (Vector3.up) * -0.3f, onGround ? Color.green : Color.red);
 
         Jetpack jetpack = power != null ? power.GetJetpack() : null;
         
