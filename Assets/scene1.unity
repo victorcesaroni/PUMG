@@ -12060,8 +12060,6 @@ MonoBehaviour:
   cooldown: 3
   teleportObject: {fileID: 1589796598}
   disableList:
-  - {fileID: 264831506}
-  - {fileID: 1568429724}
   - {fileID: 45369996}
   cooldownTimer: 0
   started: 0

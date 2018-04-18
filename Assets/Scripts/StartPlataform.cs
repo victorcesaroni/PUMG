@@ -57,6 +57,10 @@ public class StartPlataform : MonoBehaviour
 
             started = true;
         }
+
+        var sprite = GetComponent<SpriteRenderer>();
+
+        sprite.color = new Color(sprite.color.r, 1 - (cooldownTimer / cooldown), sprite.color.b);
     }
 
     void OnTriggerEnter2D(Collider2D other)
