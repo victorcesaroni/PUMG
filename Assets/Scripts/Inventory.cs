@@ -28,9 +28,7 @@ public class Inventory : MonoBehaviour {
                 t.sprite = emptyIcon;
                 continue;
             }
-
-            print(t.gameObject.name);
-
+            
             if (t.gameObject.name == "Slot" + (i + 1).ToString())
             {
                 t.sprite = player.pickups[i].icon;
