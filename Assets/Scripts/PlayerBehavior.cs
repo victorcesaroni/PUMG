@@ -16,6 +16,7 @@ public class PlayerBehavior : MonoBehaviour {
     public float walkSpeedVariation = 7.0f;
     public string horizontalAxisName = "Horizontal";
     public string verticalAxisName = "Vertical";
+    public string usePowerAxisName = "UsePower";
 
     public Image powerImageBar;
 
@@ -65,6 +66,7 @@ public class PlayerBehavior : MonoBehaviour {
 
         float axisH = Input.GetAxis(horizontalAxisName);
         float axisV = Input.GetAxis(verticalAxisName);
+        bool usePower = Input.GetAxis(usePowerAxisName) > 0.1f;
 
         Physics2D.queriesHitTriggers = false;
 
@@ -111,9 +113,9 @@ public class PlayerBehavior : MonoBehaviour {
 
         Jetpack jetpack = power != null ? power.GetJetpack() : null;
         
-        if (jetpack && jetpack.active)
+        if (jetpack && jetpack.active && usePower)
         {
-            rb.velocity = new Vector2(rb.velocity.x, axisV * jumpSpeed + axisV * (power.level * (jumpSpeed / 2.0f)));
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(axisV, 1,1) * jumpSpeed + Mathf.Clamp(axisV, 1, 1) * (power.level * (jumpSpeed / 2.0f)));
             jetpack.Consume(onGround, Mathf.Abs(axisH) > 0 || Mathf.Abs(axisV) > 0);            
         }    
         else if (onGround)
