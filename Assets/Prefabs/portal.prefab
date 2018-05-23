@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1189455392589588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1441.67, y: -74.76, z: 0}
+  m_LocalPosition: {x: -1442.67, y: -75.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   active: 0
   level: 1
   power: 1
-  icon: {fileID: 21300000, guid: 5b24e5443ace9864aacdbcdb639be58f, type: 3}
+  icon: {fileID: 21300000, guid: 1b6bcae0bb27fae4abe8d9f541ceed1a, type: 3}
 --- !u!198 &198028991778841132
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -160,7 +160,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1925358152
+  randomSeed: 837125691
   InitialModule:
     serializedVersion: 3
     enabled: 1
