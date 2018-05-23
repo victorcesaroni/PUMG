@@ -11,7 +11,7 @@ public class Portal : Pickup
         if (!active)
             return;
 
-        transform.position = enemy.transform.position;
+        owner.transform.position = enemy.transform.position;
 
         base.Consume(1);
     }

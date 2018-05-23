@@ -156,7 +156,7 @@ public class PlayerBehavior : MonoBehaviour {
             {
                 Pickup pickup = other.GetComponent<Pickup>();
 
-                if (!pickup.pickedUp)
+                if (pickup.owner == null)
                 {
                     other.transform.SetParent(transform);
                     other.transform.localPosition = new Vector3(0, 0, 1);
@@ -165,7 +165,7 @@ public class PlayerBehavior : MonoBehaviour {
                     other.transform.localRotation = new Quaternion(0, 0, 0, 0);
 
                     pickup.active = true;
-                    pickup.pickedUp = true;
+                    pickup.owner = this;
                     
                     Portal portal = pickup != null ? pickup.GetAs<Portal>() : null;
                     Ice ice = pickup != null ? pickup.GetAs<Ice>() : null;

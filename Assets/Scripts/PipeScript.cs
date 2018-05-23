@@ -34,7 +34,7 @@ public class PipeScript : MonoBehaviour {
         if (!available || possiblePipes.Count <= 0)
             return;
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             var player = other.GetComponent<PlayerBehavior>();
 
