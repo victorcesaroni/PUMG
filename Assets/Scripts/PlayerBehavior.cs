@@ -159,7 +159,7 @@ public class PlayerBehavior : MonoBehaviour {
                 if (pickup.owner == null)
                 {
                     other.transform.SetParent(transform);
-                    other.transform.localPosition = new Vector3(0, 0, 1);
+                    other.transform.localPosition = new Vector3(0, 0, 0);
                     other.transform.localScale = new Vector2(1, 1);
                     other.transform.rotation = new Quaternion(0, 0, 0, 0);
                     other.transform.localRotation = new Quaternion(0, 0, 0, 0);
