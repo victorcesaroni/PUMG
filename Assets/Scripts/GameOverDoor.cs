@@ -32,7 +32,7 @@ public class GameOverDoor : MonoBehaviour {
         if (restart)
             return;
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             countdown = restartDelay;
             restart = true;

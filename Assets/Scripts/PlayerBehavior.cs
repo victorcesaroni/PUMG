@@ -22,6 +22,8 @@ public class PlayerBehavior : MonoBehaviour {
 
     public List<Pickup> pickups = new List<Pickup>();
 
+    public GameObject enemy = null;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -111,12 +113,23 @@ public class PlayerBehavior : MonoBehaviour {
 			leftScale = !leftScale;
 		}
 
-        Jetpack jetpack = power != null ? power.GetJetpack() : null;
-        
+        Jetpack jetpack = power != null ? power.GetAs<Jetpack>() : null;
+        Portal portal = power != null ? power.GetAs<Portal>() : null;
+        Ice ice = power != null ? power.GetAs<Ice>() : null;
+
+        if (portal && usePower)
+        {
+            portal.Consume(onGround, true);
+        }
+        else if (ice && usePower)
+        {
+            ice.Consume(onGround, true);
+        }
+
         if (jetpack && jetpack.active && usePower)
         {
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(axisV, 1,1) * jumpSpeed + Mathf.Clamp(axisV, 1, 1) * (power.level * (jumpSpeed / 2.0f)));
-            jetpack.Consume(onGround, Mathf.Abs(axisH) > 0 || Mathf.Abs(axisV) > 0);            
+            jetpack.Consume(onGround, /*Mathf.Abs(axisH) > 0 || Mathf.Abs(axisV) > 0*/true);            
         }    
         else if (onGround)
         {
@@ -137,19 +150,31 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag ("PickUp"))
-		{
+        if (other.gameObject.CompareTag("PickUp"))
+        {
             if (pickups.Count < 3)
             {
-                other.transform.SetParent(transform);
-                other.transform.localPosition = new Vector3(0, 0, 1);
-                other.transform.localScale = new Vector2(1, 1);
-                other.transform.rotation = new Quaternion(0, 0, 0, 0);
-                other.transform.localRotation = new Quaternion(0, 0, 0, 0);
-
                 Pickup pickup = other.GetComponent<Pickup>();
-                pickup.active = true;
-                pickups.Add(pickup);
+
+                if (!pickup.pickedUp)
+                {
+                    other.transform.SetParent(transform);
+                    other.transform.localPosition = new Vector3(0, 0, 1);
+                    other.transform.localScale = new Vector2(1, 1);
+                    other.transform.rotation = new Quaternion(0, 0, 0, 0);
+                    other.transform.localRotation = new Quaternion(0, 0, 0, 0);
+
+                    pickup.active = true;
+                    pickup.pickedUp = true;
+                    
+                    Portal portal = pickup != null ? pickup.GetAs<Portal>() : null;
+                    Ice ice = pickup != null ? pickup.GetAs<Ice>() : null;
+
+                    if (ice) ice.enemy = enemy;
+                    if (portal) portal.enemy = enemy;
+
+                    pickups.Add(pickup);
+                }
             }
         }
 	}

@@ -68,7 +68,7 @@ public class StartPlataform : MonoBehaviour
         if (started)
             return;
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             players.Add(other.gameObject);
         }
@@ -79,7 +79,7 @@ public class StartPlataform : MonoBehaviour
         if (started)
             return;
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             players.Remove(other.gameObject);
         }

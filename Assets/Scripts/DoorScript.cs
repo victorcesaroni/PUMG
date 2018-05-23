@@ -26,7 +26,7 @@ public class DoorScript : MonoBehaviour {
         if (locked)
             return;
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player1") || other.gameObject.CompareTag("Player2"))
         {
             foreach (var item in disableList)
             {

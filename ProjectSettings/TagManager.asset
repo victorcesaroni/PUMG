@@ -7,6 +7,8 @@ TagManager:
   - PickUp
   - Pipe
   - MainCamera2
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Background2
   - Minimap1Only
   - Minimap2Only
-  - 
-  - 
+  - Player1
+  - Player2
   - 
   - 
   - 

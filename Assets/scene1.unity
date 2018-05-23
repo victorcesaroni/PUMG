@@ -16215,12 +16215,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114877606277648962, guid: b020971a146aaa44b85aad4295c1eb43,
-        type: 2}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 21300000, guid: ca867bfa71516524b9e73e060170acf4,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b020971a146aaa44b85aad4295c1eb43, type: 2}
   m_IsPrefabParent: 0
@@ -49027,7 +49021,7 @@ GameObject:
   - component: {fileID: 1843025227}
   m_Layer: 8
   m_Name: Player1
-  m_TagString: Player
+  m_TagString: Player1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49146,6 +49140,7 @@ MonoBehaviour:
   usePowerAxisName: UsePower1
   powerImageBar: {fileID: 1293043696}
   pickups: []
+  enemy: {fileID: 2050165768}
 --- !u!95 &1843025230
 Animator:
   serializedVersion: 3
@@ -55600,7 +55595,7 @@ GameObject:
   - component: {fileID: 2050165771}
   m_Layer: 8
   m_Name: Player2
-  m_TagString: Player
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55643,6 +55638,7 @@ MonoBehaviour:
   usePowerAxisName: UsePower2
   powerImageBar: {fileID: 1715617706}
   pickups: []
+  enemy: {fileID: 1843025223}
 --- !u!70 &2050165771
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

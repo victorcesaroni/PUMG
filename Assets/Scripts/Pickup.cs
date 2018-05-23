@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Pickup : MonoBehaviour
     public int level = 1;
     public float power = 1.0f;
     public Sprite icon;
+    public bool pickedUp = false;
     
     void Start()
     {
@@ -32,10 +34,26 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    public Jetpack GetJetpack()
+    public T GetAs<T>() where T : class
     {
-        if (this.GetType() == typeof(Jetpack))
-            return (Jetpack)this;
+        if (this.GetType() == typeof(T))
+            return this as T;
+
+        return default(T);
+    }
+
+    public Ice GetIce()
+    {
+        if (this.GetType() == typeof(Ice))
+            return (Ice)this;
+
+        return null;
+    }
+
+    public Portal GetPortal()
+    {
+        if (this.GetType() == typeof(Portal))
+            return (Portal)this;
 
         return null;
     }

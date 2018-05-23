@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212511082083255266}
   - component: {fileID: 61783690364043924}
   - component: {fileID: 58771493859916392}
-  - component: {fileID: 114877606277648962}
   - component: {fileID: 198521303257023034}
   - component: {fileID: 199796292236489424}
+  - component: {fileID: 114396476608776130}
   m_Layer: 0
   m_Name: ice
   m_TagString: PickUp
@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1502729440790490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1438.21, y: -74.98, z: 0}
+  m_LocalPosition: {x: -1438.5, y: -75.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.45, y: 0.49}
   m_EdgeRadius: 0
---- !u!114 &114877606277648962
+--- !u!114 &114396476608776130
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -93,13 +93,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1502729440790490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec85ff0edbb8941498f82bb291128cb0, type: 3}
+  m_Script: {fileID: 11500000, guid: c3da2d0559e73b5478d1c97abaae4c14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
   level: 1
   power: 1
-  icon: {fileID: 21300000, guid: e991b42d5247491419837edff7807011, type: 3}
+  icon: {fileID: 21300000, guid: ca867bfa71516524b9e73e060170acf4, type: 3}
+  pickedUp: 0
+  enemy: {fileID: 0}
 --- !u!198 &198521303257023034
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -160,7 +162,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1056453814
+  randomSeed: 1528670117
   InitialModule:
     serializedVersion: 3
     enabled: 1
