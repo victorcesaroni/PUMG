@@ -23,6 +23,8 @@ public class PlayerBehavior : MonoBehaviour {
     public List<Pickup> pickups = new List<Pickup>();
 
     public GameObject enemy = null;
+    private bool blockedFromUsingPower = false;
+
 
     void Start()
     {
@@ -51,11 +53,15 @@ public class PlayerBehavior : MonoBehaviour {
         if (pickups.Count <= 0)
             return null;
 
+        if (blockedFromUsingPower)
+            return null;
+
         Pickup p = pickups[pickups.Count - 1];
 
         if (p.power <= 0.0f)
         {
             pickups.Remove(p);
+            blockedFromUsingPower = true;
             return null;
         }
 
@@ -112,6 +118,9 @@ public class PlayerBehavior : MonoBehaviour {
 			transform.localScale = new Vector2 (transform.localScale.x * -1.0f, transform.localScale.y);
 			leftScale = !leftScale;
 		}
+
+        if (!usePower)
+            blockedFromUsingPower = false;
 
         Jetpack jetpack = power != null ? power.GetAs<Jetpack>() : null;
         Portal portal = power != null ? power.GetAs<Portal>() : null;

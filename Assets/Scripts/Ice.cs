@@ -12,8 +12,9 @@ public class Ice : Pickup
             return;
 
         var player = enemy.GetComponent<PlayerBehavior>();
-
-        player.pickups.Clear();
+        
+        if (player.pickups.Count > 0)
+            player.pickups.RemoveAt(Random.Range(0, player.pickups.Count - 1));
 
         base.Consume(1);
     }

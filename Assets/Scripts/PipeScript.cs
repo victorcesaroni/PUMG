@@ -41,9 +41,9 @@ public class PipeScript : MonoBehaviour {
             if (player.ducking)
             {
                 int index = Mathf.FloorToInt(Random.Range(0, (float)possiblePipes.Count));
-                var pipe = possiblePipes[index].GetComponent<PipeScript>();
+                var pipe = possiblePipes[index];
 
-                player.transform.position = pipe.transform.position + new Vector3(0, 3, 0);
+                player.transform.position = pipe.transform.position;
                 
                 available = false;
             }
